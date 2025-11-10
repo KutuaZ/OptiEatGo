@@ -23,23 +23,17 @@ export class PreferencesPage {
     // Eliminar temas previos del body
     document.body.classList.remove('theme-vegano', 'theme-vegetariano', 'theme-omnivoro');
 
-    // Agregar el nuevo tema
-    switch (option) {
-      case 'vegano':
-        document.body.classList.add('theme-vegano');
-        break;
-      case 'vegetariano':
-        document.body.classList.add('theme-vegetariano');
-        break;
-      case 'omnívoro':
-        document.body.classList.add('theme-omnivoro');
-        break;
-      default:
-        break;
+    // Normalizar opción (por si lleva acentos)
+    const normalized = option.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    // Agregar la clase correspondiente al tema
+    if (['vegano', 'vegetariano', 'omnivoro'].includes(normalized)) {
+      document.body.classList.add(`theme-${normalized}`);
     }
 
     alert(`Preferencia seleccionada: ${option}`);
     this.router.navigateByUrl('/home');
   }
 }
+
 

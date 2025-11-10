@@ -51,8 +51,16 @@ export class LoginPage {
     // Guardar sesión activa
     localStorage.setItem('activeUser', username);
 
-    // Ir a preferencias
-    this.router.navigateByUrl('/preferences');
+    // ✅ Aplicar tema guardado del usuario
+    const pref = localStorage.getItem('preference');
+    if (pref) {
+      const normalized = pref.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      document.body.classList.remove('theme-vegano', 'theme-vegetariano', 'theme-omnivoro');
+      document.body.classList.add(`theme-${normalized}`);
+    }
+
+    // Redirigir a home directamente (ya con tema)
+    this.router.navigateByUrl('/home');
   }
 
   goToRegister() {
