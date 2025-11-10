@@ -1,20 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage {
+  newUser = {
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  };
 
-  constructor() { }
+  constructor(private router: Router) {}
 
-  ngOnInit() {
+  register() {
+    if (
+      !this.newUser.username ||
+      !this.newUser.email ||
+      !this.newUser.password ||
+      !this.newUser.confirmPassword
+    ) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+
+    if (this.newUser.password !== this.newUser.confirmPassword) {
+      alert('Las contraseñas no coinciden');
+      return;
+    }
+
+    alert('Cuenta creada correctamente');
+    this.router.navigateByUrl('/login');
   }
 
+  goToLogin() {
+    this.router.navigateByUrl('/login');
+  }
 }
