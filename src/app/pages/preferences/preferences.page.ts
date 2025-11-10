@@ -18,28 +18,26 @@ export class PreferencesPage {
 
   selectPreference(option: string) {
     this.selectedPreference = option;
-
-    // Guardar preferencia en localStorage para mantenerla en la app
     localStorage.setItem('preference', option);
 
-    // Cambiar color del tema según elección
-    let color;
+    // Eliminar temas previos del body
+    document.body.classList.remove('theme-vegano', 'theme-vegetariano', 'theme-omnivoro');
+
+    // Agregar el nuevo tema
     switch (option) {
       case 'vegano':
-        color = '#00C853'; // verde fuerte
+        document.body.classList.add('theme-vegano');
         break;
       case 'vegetariano':
-        color = '#AEEA00'; // verde limón
+        document.body.classList.add('theme-vegetariano');
         break;
       case 'omnívoro':
-        color = '#FFFFFF'; // blanco base
+        document.body.classList.add('theme-omnivoro');
         break;
       default:
-        color = '#1976D2'; // azul base
+        break;
     }
-    document.body.style.backgroundColor = color;
 
-    // Luego de seleccionar, ir al home
     alert(`Preferencia seleccionada: ${option}`);
     this.router.navigateByUrl('/home');
   }

@@ -35,3 +35,39 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+
+
+/* === Temas dinámicos === */
+:root {
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
+  --ion-color-primary: #1976D2;
+  --ion-toolbar-background: #1976D2;
+  --ion-tab-bar-background: #f9f9f9;
+}
+
+body.theme-vegano {
+  --ion-background-color: #e8f5e9;
+  --ion-text-color: #1b5e20;
+  --ion-color-primary: #00C853;
+  --ion-toolbar-background: #00C853;
+  --ion-tab-bar-background: #c8e6c9;
+}
+
+body.theme-vegetariano {
+  --ion-background-color: #f4fce3;
+  --ion-text-color: #33691e;
+  --ion-color-primary: #AEEA00;
+  --ion-toolbar-background: #AEEA00;
+  --ion-tab-bar-background: #dcedc8;
+}
+
+body.theme-omnivoro {
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
+  --ion-color-primary: #ff8f00;
+  --ion-toolbar-background: #ff8f00;
+  --ion-tab-bar-background: #fff3e0;
+}

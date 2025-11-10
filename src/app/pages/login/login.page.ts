@@ -20,28 +20,41 @@ export class LoginPage {
   constructor(private router: Router) {}
 
   login() {
-    if (!this.user.username || !this.user.password) {
+    const { username, password } = this.user;
+
+    if (!username || !password) {
       alert('Por favor completa los campos.');
       return;
     }
 
-    if (this.user.username.length < 3 || this.user.username.length > 8) {
+    if (username.length < 3 || username.length > 8) {
       alert('El usuario debe tener entre 3 y 8 caracteres.');
       return;
     }
 
-    if (!/^[0-9]{4}$/.test(this.user.password)) {
+    if (!/^[0-9]{4}$/.test(password)) {
       alert('La contraseña debe tener exactamente 4 dígitos numéricos.');
       return;
     }
 
-    localStorage.setItem('user', this.user.username);
+    // Recuperar usuarios registrados
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
 
-    // Ir a preferencias tras login
+    // Buscar usuario
+    const found = users.find((u: any) => u.username === username && u.password === password);
+
+    if (!found) {
+      alert('Usuario o contraseña incorrectos.');
+      return;
+    }
+
+    // Guardar sesión activa
+    localStorage.setItem('activeUser', username);
+
+    // Ir a preferencias
     this.router.navigateByUrl('/preferences');
   }
 
-  // registrar usuario
   goToRegister() {
     this.router.navigateByUrl('/register');
   }
