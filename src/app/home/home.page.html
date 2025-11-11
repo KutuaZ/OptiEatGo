@@ -1,63 +1,96 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>OptiEatGo</ion-title>
-  </ion-toolbar>
-  <ion-searchbar placeholder="Buscar restaurantes o platos..."></ion-searchbar>
-</ion-header>
+<!-- MENU LATERAL -->
+<ion-menu side="end" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Opciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" class="ion-text-center">
-        <h2>Recomendados para ti </h2>
-      </ion-col>
-    </ion-row>
+  <ion-content>
+    <ion-list>
+      <ion-item (click)="goToOrders()">
+        <ion-icon name="receipt-outline" slot="start"></ion-icon>
+        <ion-label>Pedidos</ion-label>
+      </ion-item>
 
-    <!-- Tarjetas de ejemplo -->
-    <ion-row>
-      <ion-col size="6">
-        <ion-card>
-          <img alt="comida" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          <ion-card-header>
-            <ion-card-title>Veggie Bowl</ion-card-title>
-            <ion-card-subtitle>Saludable y sabroso</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
+      <ion-item (click)="logout()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        <ion-label>Cerrar sesión</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
 
-      <ion-col size="6">
-        <ion-card>
-          <img alt="comida" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          <ion-card-header>
-            <ion-card-title>Hamburguesa Fit</ion-card-title>
-            <ion-card-subtitle>Alta en proteínas</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+<!-- CONTENIDO PRINCIPAL -->
+<div class="ion-page" id="main-content">
+  <ion-header class="ion-no-border">
+    <ion-toolbar>
+      <div class="top-bar">
+        <ion-avatar class="user-avatar">
+          <img src="assets/imagen/fotoperfildemo.jpg" alt="Usuario" />
+        </ion-avatar>
 
-<!-- Footer  -->
+        <ion-buttons slot="end">
+          <ion-menu-button autoHide="false" color="primary"></ion-menu-button>
+        </ion-buttons>
+      </div>
+    </ion-toolbar>
+  </ion-header>
 
-<ion-footer class="footer-tabs">
-  <ion-toolbar>
-    <div class="footer-icons">
-      <ion-button fill="clear" [routerLink]="['/home']" routerDirection="root">
-        <ion-icon name="search-outline"></ion-icon>
-      </ion-button>
-
-      <ion-button fill="clear" [routerLink]="['/cart']" routerDirection="root">
-        <ion-icon name="cart-outline"></ion-icon>
-      </ion-button>
-
-      <ion-button fill="clear" [routerLink]="['/saved']" routerDirection="root">
-        <ion-icon name="bookmark-outline"></ion-icon>
-      </ion-button>
-
-      <ion-button fill="clear" [routerLink]="['/profile']" routerDirection="root">
-        <ion-icon name="person-circle-outline"></ion-icon>
-      </ion-button>
+  <ion-content class="ion-padding">
+    <div class="welcome-section">
+      <h2>Bienvenido, {{ username }} </h2>
+      <p>¿Quieres saber qué tenemos para ti?</p>
     </div>
-  </ion-toolbar>
-</ion-footer>
+
+    <ion-searchbar placeholder="Buscar restaurantes o platos..."></ion-searchbar>
+
+    <div class="history-section">
+      <ion-icon name="time-outline"></ion-icon>
+      <span>Apreta y mira tus anteriores compras</span>
+    </div>
+
+    <h3 class="recommend-title">Hoy te recomendamos:</h3>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" *ngFor="let item of recommended">
+          <ion-card [class.saved]="isSaved(item)" (click)="animateCard($event)">
+            <img [src]="item.image" alt="{{item.title}}" />
+            <ion-card-header>
+              <ion-card-title>{{ item.title }}</ion-card-title>
+              <ion-card-subtitle>{{ item.description }}</ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-button fill="clear" class="save-btn" (click)="saveItem(item)">
+              <ion-icon name="bookmark-outline"></ion-icon>
+            </ion-button>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+
+  <!-- Footer -->
+  <ion-footer class="footer-tabs">
+    <ion-toolbar>
+      <div class="footer-icons">
+        <ion-button fill="clear" [routerLink]="['/home']">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="clear" [routerLink]="['/cart']">
+          <ion-icon name="cart-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="clear" [routerLink]="['/saved']">
+          <ion-icon name="bookmark-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="clear" [routerLink]="['/profile']">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
+</div>

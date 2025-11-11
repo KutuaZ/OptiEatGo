@@ -51,11 +51,13 @@ export class LoginPage {
     // Guardar sesión activa
     localStorage.setItem('activeUser', username);
 
-    // ✅ Aplicar tema guardado del usuario
-    const pref = localStorage.getItem('preference');
-    if (pref) {
-      const normalized = pref.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-      document.body.classList.remove('theme-vegano', 'theme-vegetariano', 'theme-omnivoro');
+    // Limpiar cualquier tema anterior
+    document.body.classList.remove('theme-vegano', 'theme-vegetariano', 'theme-omnivoro');
+
+    // Aplicar tema guardado del usuario (si existe)
+    const savedPref = localStorage.getItem(`preference_${username}`);
+    if (savedPref) {
+      const normalized = savedPref.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
       document.body.classList.add(`theme-${normalized}`);
     }
 

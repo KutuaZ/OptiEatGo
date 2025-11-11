@@ -27,7 +27,7 @@ export class ProfilePage implements OnInit {
     name: '',
     status: 'Usuario activo',
     points: 0,
-    avatar: 'assets/avatar.png'
+    avatar: 'assets/imagen/fotoperfildemo.jpg'
   };
 
   menuOptions = [
@@ -35,7 +35,7 @@ export class ProfilePage implements OnInit {
     { icon: 'notifications-outline', label: 'Notificaciones', action: 'notifications' },
     { icon: 'location-outline', label: 'Dirección Restaurante', action: 'location' },
     { icon: 'heart-outline', label: 'Guardados', action: 'favorites' },
-    { icon: 'color-palette-outline', label: 'Cambiar preferencia de alimentación', action: 'preferences' }, // 🔹 NUEVO
+    { icon: 'color-palette-outline', label: 'Cambiar preferencia de alimentación', action: 'preferences' },
     { icon: 'settings-outline', label: 'Ajustes', 
       action: 'settings',
       subtitle: 'Soporte técnico, privacidad y términos de uso'

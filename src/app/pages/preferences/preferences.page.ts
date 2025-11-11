@@ -18,15 +18,22 @@ export class PreferencesPage {
 
   selectPreference(option: string) {
     this.selectedPreference = option;
-    localStorage.setItem('preference', option);
+
+    // Normalizar opción
+    const normalized = option.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    // Obtener usuario actual
+    const activeUser = localStorage.getItem('activeUser');
+
+    // Guardar la preferencia asociada al usuario actual
+    if (activeUser) {
+      localStorage.setItem(`preference_${activeUser}`, normalized);
+    }
 
     // Eliminar temas previos del body
     document.body.classList.remove('theme-vegano', 'theme-vegetariano', 'theme-omnivoro');
 
-    // Normalizar opción (por si lleva acentos)
-    const normalized = option.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-
-    // Agregar la clase correspondiente al tema
+    // Aplicar el nuevo tema
     if (['vegano', 'vegetariano', 'omnivoro'].includes(normalized)) {
       document.body.classList.add(`theme-${normalized}`);
     }
@@ -35,5 +42,3 @@ export class PreferencesPage {
     this.router.navigateByUrl('/home');
   }
 }
-
-

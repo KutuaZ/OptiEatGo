@@ -31,7 +31,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/cart/cart.page').then( m => m.CartPage)
   },
   {
-    path: 'saved',
-    loadComponent: () => import('./pages/saved/saved.page').then( m => m.SavedPage)
+  path: 'saved',
+  loadComponent: () => import('./pages/saved/saved.page').then( m => m.SavedPage)
   },
 ];

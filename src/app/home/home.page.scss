@@ -1,33 +1,176 @@
+ion-menu {
+  --width: 250px;
+  --background: var(--ion-background-color);
+  ion-toolbar {
+    --color: var(--ion-text-color);
+  }
+  ion-item {
+    --color: var(--ion-text-color);
+  }
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+.user-avatar {
+  width: 45px;
+  height: 45px;
+  border: 2px solid var(--ion-color-primary);
+  overflow: hidden;
+}
+
+ion-menu-button {
+  color: var(--ion-text-color); /* ← usa el color de texto, no el primario */
+  font-size: 30px;
+  --ripple-color: rgba(0, 0, 0, 0.1);
+}
+
+
+.welcome-section {
+  margin-top: 10px;
+  text-align: left;
+
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  p {
+    color: #666;
+  }
+}
+
+.history-section {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+
+  ion-icon {
+    color: var(--ion-color-primary);
+    font-size: 20px;
+    margin-right: 8px;
+  }
+}
+
 .footer-tabs {
   ion-toolbar {
-    --background: #1a1a1a;
-    height: 70px;
+    --background: var(--ion-tab-bar-background);
+  }
+
+  .footer-icons {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+    justify-content: space-between;
+
+    ion-button {
+      color: var(--ion-color-primary);
+
+      ion-icon {
+        font-size: 2.1rem;
+      }
+    }
+  }
+}
+/* Fuerza color visible del icono del menú */
+ion-menu-button::part(icon) {
+  color: var(--ion-text-color) !important;
+  font-size: 28px;
+}
+/* === Estilos de iconos del footer === */
+.footer-tabs {
+  ion-toolbar {
+    --background: var(--ion-tab-bar-background);
   }
 
   .footer-icons {
     display: flex;
     justify-content: space-around;
-    width: 100%;
+    align-items: center;
+
+    ion-button {
+      --color: var(--ion-text-color);
+      --ripple-color: rgba(0, 0, 0, 0.1);
+      transition: transform 0.15s ease, color 0.2s ease;
+
+      ion-icon {
+        font-size: 2.2rem;
+      }
+
+      /* Efecto al presionar */
+      &:active,
+      &:focus,
+      &.activated {
+        --color: #E91E63; /* rosa */
+        transform: scale(1.1);
+      }
+    }
   }
+}
+
+/* Evita que el texto del título del menu se corte */
+ion-menu ion-toolbar ion-title {
+  flex: 1 1 auto;
+  text-overflow: unset !important;
+  overflow: visible !important;
+  white-space: normal !important;
+  text-align: right;
+  padding-left: 12px;
+}
+
+ion-card {
+  img {
+    width: 100%;
+    height: 180px; /* puedes ajustar a gusto: 160, 200, etc. */
+    object-fit: cover; /* recorta sin deformar la imagen */
+    border-radius: 10px 10px 0 0; /* bordes suaves arriba */
+  }
+
+  ion-card-header {
+    text-align: left;
+  }
+}
+
+
+ion-card {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #e91e63;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+/* Carta guardada (rellena rosado) */
+ion-card.saved {
+  background-color: #e91e63 !important;
+  color: white;
+  border: 2px solid #e91e63;
+  transform: scale(1.02);
+
+  ion-card-title,
+  ion-card-subtitle {
+    color: white !important;
+  }
+
+  .save-btn {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Botón guardar */
+.save-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  color: #e91e63;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  --ripple-color: transparent;
 
   ion-icon {
-    font-size: 32px;
-    color: #ffffff;
-    transition: color 0.2s ease;
-  }
-
-  ion-button {
-    --background: transparent;
-    --padding-start: 0;
-    --padding-end: 0;
-  }
-
-  ion-button:hover ion-icon,
-  ion-button.router-link-active ion-icon {
-    color: #b62953;
+    font-size: 1.6rem;
   }
 }
