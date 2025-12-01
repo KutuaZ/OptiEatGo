@@ -13,14 +13,13 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class ReclamoPage {
   texto = '';
-  photo: string | null = null; // data URL o webPath
+  photo: string | null = null; 
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   constructor(private router: Router, private alertCtrl: AlertController, private platform: Platform) {}
 
   async takePhoto() {
-    // Intentamos usar Capacitor Camera mediante import dinámico. Si falla, usamos input file como fallback.
     try {
       const CameraModule = await import('@capacitor/camera');
       const { Camera, CameraResultType, CameraSource } = CameraModule;
@@ -38,15 +37,12 @@ export class ReclamoPage {
         this.photo = (photo as any).webPath;
       }
     } catch (e) {
-      // Log the error for debugging
       console.error('Camera error:', e);
-      // Show an alert to the user
       this.alertCtrl.create({
         header: 'Error al acceder a la cámara',
         message: 'No se pudo acceder a la cámara. Puedes seleccionar una foto desde tus archivos.',
         buttons: ['OK']
       }).then(alert => alert.present());
-      // Fallback web: abrir input file
       if (this.fileInput && this.fileInput.nativeElement) {
         this.fileInput.nativeElement.click();
       }
@@ -71,7 +67,7 @@ export class ReclamoPage {
       return;
     }
 
-    // Guardamos localmente como ejemplo. Reemplaza por fetch() si quieres enviar a un backend.
+    // Guardamos localmente como ejemplo. 
     const reports = JSON.parse(localStorage.getItem('reclamos') || '[]');
     reports.unshift({ text: this.texto.trim(), photo: this.photo, date: new Date().toISOString() });
     localStorage.setItem('reclamos', JSON.stringify(reports));

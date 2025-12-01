@@ -55,7 +55,7 @@ export class MapaPage {
       }).addTo(this.map!);
 
       L.marker([lat, lng]).addTo(this.map!)
-        .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+        .bindPopup('¡Aquí estás!')
         .openPopup();
 
     }catch (error) {

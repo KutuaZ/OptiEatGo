@@ -33,7 +33,7 @@ export class ProfilePage implements OnInit {
   menuOptions = [
     { icon: 'person-outline', label: 'Información personal', action: 'personal-info' },
     { icon: 'notifications-outline', label: 'Notificaciones', action: 'notifications' },
-    { icon: 'location-outline', label: 'Dirección Restaurante', action: 'location' },
+    { icon: 'location-outline', label: 'Dirección Restaurante', action: 'mapa' },
     { icon: 'heart-outline', label: 'Guardados', action: 'favorites' },
     { icon: 'color-palette-outline', label: 'Cambiar preferencia de alimentación', action: 'preferences' },
     { icon: 'settings-outline', label: 'Ajustes', 
@@ -62,13 +62,32 @@ export class ProfilePage implements OnInit {
     }
   }
 
-  onMenuClick(action: string) {
-    if (action === 'preferences') {
-      this.router.navigate(['/preferences']); //  redirige a la página de preferencias
-      return;
-    }
 
-    console.log('Menu action:', action);
+
+  onMenuClick(action: string) {
+    switch (action) {
+      case 'preferences':
+        this.router.navigate(['/preferences']);
+        return;
+      case 'mapa':
+      case 'maps':
+        this.router.navigate(['/mapa']);
+        return;
+      case 'favorites':
+        this.router.navigate(['/saved']);
+        return;
+      case 'personal-info':
+        this.router.navigate(['/profile']);
+        return;
+      case 'notifications':
+        this.router.navigate(['/notifications']).catch(() => console.log('No hay ruta /notifications'));
+        return;
+      case 'settings':
+        this.router.navigate(['/settings']).catch(() => console.log('No hay ruta /settings'));
+        return;
+      default:
+        console.log('Menu action:', action);
+    }
   }
 
   close() {
