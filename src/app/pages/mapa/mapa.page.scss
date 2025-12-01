@@ -6,3 +6,13 @@ ion-content {
     width: 100%;
     height: 100%;
 }
+
+/* Estilos para el botón de cierre en la cabecera */
+ion-header ion-toolbar .close-btn {
+    --background: transparent;
+}
+
+ion-header ion-toolbar .close-btn ion-icon {
+    color: #fff; /* forzar blanco */
+    font-size: 22px;
+}

@@ -1,0 +1,135 @@
+/* Estilos para la página de carrito */
+.cart-wrapper {
+	padding: 12px;
+}
+
+.empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 60vh;
+	color: rgba(0,0,0,0.6);
+}
+
+.price {
+	color: rgba(0,0,0,0.6);
+	font-size: 14px;
+}
+
+.qty {
+	width: 80px;
+	margin-right: 6px;
+}
+
+.cart-footer {
+	position: sticky;
+	bottom: 0;
+	background: rgba(255,255,255,0.95);
+	padding: 10px 12px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+.cart-footer .actions ion-button {
+	min-width: 120px;
+}
+
+ion-header ion-toolbar .close-btn ion-icon {
+	color: var(--ion-text-color);
+}
+
+ion-header ion-toolbar[color="primary"] .close-btn ion-icon,
+ion-header ion-toolbar[color="primary"] ion-title {
+	color: #fff !important;
+}
+
+ion-header[translucent] ion-toolbar[color="primary"] .close-btn ion-icon,
+ion-header[translucent] ion-toolbar[color="primary"] ion-title {
+	color: #fff !important;
+}
+
+ion-footer ion-toolbar {
+	--padding-start: 12px;
+	--padding-end: 12px;
+}
+
+.footer-content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+ion-footer ion-toolbar {
+	--background: var(--ion-color-primary);
+	background-color: var(--ion-color-primary) !important;
+	min-height: 64px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+ion-footer ion-toolbar .total,
+ion-footer ion-toolbar .actions ion-button {
+	color: #fff;
+}
+
+/* Aumentar contraste y espacio para botones */
+.footer-content { padding: 8px 4px; gap: 12px; }
+.footer-content .total { font-size: 1rem; }
+.footer-content .actions { display:flex; gap:8px; align-items:center; }
+.footer-content .actions ion-button {
+	color: #fff !important;
+	border: 1px solid rgba(255,255,255,0.18);
+	--padding-start: 12px;
+	--padding-end: 12px;
+}
+
+/* Botones sólidos con buena visibilidad sobre toolbar primario */
+.footer-content .actions ion-button[fill="solid"] {
+	opacity: 1 !important;
+	background: rgba(255,255,255,0.95) !important;
+	color: var(--ion-color-primary) !important;
+	box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+	border-radius: 8px;
+}
+
+.footer-content .actions ion-button[color="danger"][fill="solid"] {
+	background: var(--ion-color-danger) !important;
+	color: #fff !important;
+}
+
+/* Dar más separación entre precio y botones en pantallas grandes */
+@media (min-width: 481px) {
+	.footer-content { padding-left: 18px; padding-right: 18px; }
+	.footer-content .total { margin-right: 16px; }
+}
+
+@media (max-width: 480px) {
+	.footer-content { flex-direction: column; align-items: stretch; }
+	.footer-content .actions { width: 100%; display:flex; gap:8px; }
+	.footer-content .actions ion-button { flex: 1 1 auto; }
+}
+
+/* Ajustes responsivos */
+@media (max-width: 480px) {
+	.footer-content { flex-direction: column; gap: 8px; align-items: stretch; }
+	.footer-content .actions { display:flex; justify-content:space-between; }
+}
+
+.empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: calc(100vh - 140px);
+	gap: 12px;
+}
+
+.empty ion-button {
+	margin-top: 6px;
+}
+

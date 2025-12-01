@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, AnimationController, MenuController } from '@ionic/angular';
 import { RouterModule, Router } from '@angular/router';
+import { CartService } from '../services/cart.service';
 import { addIcons } from 'ionicons';
 import {
   timeOutline,
@@ -25,12 +26,12 @@ import {
 export class HomePage implements OnInit {
   username = '';
   recommended = [
-    { title: 'Costillar asado', description: 'Jugoso y tierno.', image: 'assets/imagen/costillarasado.jpg' },
-    { title: 'Hamburguesa artesanal', description: 'Pan brioche y cheddar.', image: 'assets/imagen/hamburguesaartesanal.jpg' },
-    { title: 'Pizza Pepperoni', description: 'Queso y pepperoni.', image: 'assets/imagen/pizzapeperoni.jpg' }
+    { id: 201, title: 'Costillar asado', description: 'Jugoso y tierno.', image: 'assets/imagen/costillarasado.jpg', price: 12990 },
+    { id: 202, title: 'Hamburguesa artesanal', description: 'Pan brioche y cheddar.', image: 'assets/imagen/hamburguesaartesanal.jpg', price: 6990 },
+    { id: 203, title: 'Pizza Pepperoni', description: 'Queso y pepperoni.', image: 'assets/imagen/pizzapeperoni.jpg', price: 8990 }
   ];
 
-  constructor(private router: Router, private animationCtrl: AnimationController, private menu: MenuController) {
+  constructor(private router: Router, private animationCtrl: AnimationController, private menu: MenuController, public cart: CartService) {
     addIcons({
       timeOutline,
       searchOutline,
@@ -46,6 +47,17 @@ export class HomePage implements OnInit {
   ngOnInit() {
     const storedUser = localStorage.getItem('activeUser');
     this.username = storedUser || 'Usuario';
+  }
+
+  addToCart(item: any) {
+    const toAdd = { id: item.id, title: item.title, price: item.price, image: item.image, qty: 1 };
+    try {
+      this.cart.addItem(toAdd);
+      alert(`${item.title} agregado al carrito`);
+    } catch (e) {
+      console.error('Error añadiendo al carrito', e);
+      alert('No se pudo agregar al carrito');
+    }
   }
 
   //  Guardar o quitar guardado

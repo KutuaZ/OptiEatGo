@@ -1,9 +1,13 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar color="primary">
     <ion-title>Reclamo rápido</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="ion-padding reclamo-page">
   <ion-item>
     <ion-label position="stacked">Detalle</ion-label>

@@ -1,24 +1,34 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
 
 import * as L from 'leaflet';
 import { Geolocation } from '@capacitor/geolocation';
+import { addIcons } from 'ionicons';
+import { closeOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-mapa',
   templateUrl: './mapa.page.html',
   styleUrls: ['./mapa.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonButton, IonIcon, CommonModule, FormsModule]
 })
 export class MapaPage {
 
 
   private map?: L.Map;
 
-  constructor() { }
+  constructor(private router: Router) {
+    // Registrar el icono para que se muestre correctamente
+    try { addIcons({ closeOutline }); } catch (e) { /* no crítico si falla */ }
+  }
+
+  close() {
+    this.router.navigate(['/home']);
+  }
 
   async ionViewDidEnter() {
     await this.cargarMapa();

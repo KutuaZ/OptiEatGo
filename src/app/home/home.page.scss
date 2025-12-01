@@ -161,16 +161,61 @@ ion-card.saved {
 
 /* Botón guardar */
 .save-btn {
+  /* No posicionar absolute para evitar solapamientos; se usará dentro del footer */
+  position: static;
+  z-index: 1;
+  color: #e91e63;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  --ripple-color: transparent;
+  padding: 6px;
+
+  ion-icon {
+    font-size: 1.3rem;
+  }
+}
+
+/* Si en algún contexto quieres la versión top-right, usa .top-right */
+.save-btn.top-right {
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 10;
-  color: #e91e63;
-  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
-  --ripple-color: transparent;
+  padding: 8px;
+}
 
-  ion-icon {
-    font-size: 1.6rem;
-  }
+/* Footer interno de cada card con precio y acciones */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 8px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  background: rgba(255,255,255,0.92);
+}
+
+.card-footer .price {
+  font-weight: 700;
+  color: #222;
+}
+
+.card-footer .actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.card-footer ion-button {
+  min-width: 80px;
+}
+
+/* Asegura que los iconos del footer sean visibles (usar color de texto del tema) */
+.footer-tabs .footer-icons ion-button ion-icon {
+  color: var(--ion-text-color) !important;
+  font-size: 1.6rem;
+}
+
+/* Mantener visible el icono del menu en distintos themes */
+ion-menu-button::part(icon) {
+  color: var(--ion-text-color) !important;
 }

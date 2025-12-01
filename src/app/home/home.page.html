@@ -67,9 +67,15 @@
               <ion-card-subtitle>{{ item.description }}</ion-card-subtitle>
             </ion-card-header>
 
-            <ion-button fill="clear" class="save-btn" (click)="saveItem(item)">
-              <ion-icon name="bookmark-outline"></ion-icon>
-            </ion-button>
+            <ion-card-content class="card-footer">
+              <div class="price">$ {{ item.price | number:'1.0-0' }}</div>
+              <div class="actions">
+                  <ion-button color="primary" (click)="$event.stopPropagation(); addToCart(item)">Agregar</ion-button>
+                  <ion-button fill="clear" class="save-btn" (click)="$event.stopPropagation(); saveItem(item)">
+                    <ion-icon name="bookmark-outline"></ion-icon>
+                  </ion-button>
+              </div>
+            </ion-card-content>
           </ion-card>
         </ion-col>
       </ion-row>
@@ -86,6 +92,7 @@
 
         <ion-button fill="clear" [routerLink]="['/cart']">
           <ion-icon name="cart-outline"></ion-icon>
+          <ion-badge *ngIf="cart.getItems().length" slot="end" color="danger">{{ cart.getItems().length }}</ion-badge>
         </ion-button>
 
         <ion-button fill="clear" [routerLink]="['/saved']">

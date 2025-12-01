@@ -3,6 +3,8 @@ import { IonicModule, AlertController, Platform } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { closeOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-reclamo',
@@ -17,7 +19,9 @@ export class ReclamoPage {
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private router: Router, private alertCtrl: AlertController, private platform: Platform) {}
+  constructor(private router: Router, private alertCtrl: AlertController, private platform: Platform) {
+    addIcons({ closeOutline });
+  }
 
   async takePhoto() {
     try {
@@ -79,5 +83,9 @@ export class ReclamoPage {
     this.texto = '';
     this.photo = null;
     this.router.navigateByUrl('/home');
+  }
+
+  close() {
+    this.router.navigate(['/home']);
   }
 }
