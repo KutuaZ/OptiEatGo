@@ -27,11 +27,19 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/profile/profile.page').then( m => m.ProfilePage)
   },
   {
+    path: 'reclamo',
+    loadComponent: () => import('./pages/reclamo/reclamo.page').then( m => m.ReclamoPage)
+  },
+  {
     path: 'cart',
     loadComponent: () => import('./pages/cart/cart.page').then( m => m.CartPage)
   },
   {
   path: 'saved',
   loadComponent: () => import('./pages/saved/saved.page').then( m => m.SavedPage)
+  },
+  {
+    path: 'mapa',
+    loadComponent: () => import('./pages/mapa/mapa.page').then( m => m.MapaPage)
   },
 ];

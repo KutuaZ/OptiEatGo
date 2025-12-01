@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Reclamo rápido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding reclamo-page">
+  <ion-item>
+    <ion-label position="stacked">Detalle</ion-label>
+    <ion-textarea rows="5" [(ngModel)]="texto" placeholder="Describe brevemente el problema..."></ion-textarea>
+  </ion-item>
+
+  <div class="photo-area">
+    <div *ngIf="photo; else noPhoto" class="photo-preview">
+      <img [src]="photo" alt="Foto" />
+    </div>
+    <ng-template #noPhoto>
+      <div class="photo-empty">Sin foto aún</div>
+    </ng-template>
+  </div>
+
+  <input #fileInput type="file" accept="image/*" (change)="onFileChange($event)" style="display:none" />
+
+  <div class="buttons">
+    <ion-button expand="block" (click)="takePhoto()">Tomar foto / Seleccionar</ion-button>
+    <ion-button expand="block" color="success" (click)="sendReport()">Enviar reclamo</ion-button>
+  </div>
+</ion-content>

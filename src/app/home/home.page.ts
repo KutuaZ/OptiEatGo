@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, AnimationController } from '@ionic/angular';
+import { IonicModule, AnimationController, MenuController } from '@ionic/angular';
 import { RouterModule, Router } from '@angular/router';
 import { addIcons } from 'ionicons';
 import {
@@ -30,7 +30,7 @@ export class HomePage implements OnInit {
     { title: 'Pizza Pepperoni', description: 'Queso y pepperoni.', image: 'assets/imagen/pizzapeperoni.jpg' }
   ];
 
-  constructor(private router: Router, private animationCtrl: AnimationController) {
+  constructor(private router: Router, private animationCtrl: AnimationController, private menu: MenuController) {
     addIcons({
       timeOutline,
       searchOutline,
@@ -96,5 +96,16 @@ export class HomePage implements OnInit {
     localStorage.removeItem('activeUser');
     document.body.classList.remove('theme-vegano', 'theme-vegetariano', 'theme-omnivoro');
     this.router.navigateByUrl('/login');
+  }
+
+  async goToReclamo() {
+    // cerrar el menú antes de navegar para evitar comportamientos inesperados
+    try {
+      await this.menu.close();
+    } catch (e) {
+      // Log the error for debugging purposes; menu close errors are usually non-critical
+      console.error('Error closing menu before navigating to /reclamo:', e);
+    }
+    this.router.navigateByUrl('/reclamo');
   }
 }

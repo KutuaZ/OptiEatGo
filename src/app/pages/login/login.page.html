@@ -1,31 +1,38 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>OptiEatGo - Login</ion-title>
+    <ion-title>OptiEatGo</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding login-content">
-  <ion-card>
+<ion-content [fullscreen]="true" class="login-page">
+  <div class="logo-wrap">
+    <div class="logo-circle">
+      <!-- Pon aquí tu logo en assets, por ejemplo: assets/img/logo.png -->
+      <img src="assets/icon/circularlogo.png" alt="OptiEatGo logo" onerror="this.style.display='none'" />
+    </div>
+  </div>
+
+  <ion-card class="login-card">
     <ion-card-header>
-      <ion-card-title>Bienvenido a OptiEatGo</ion-card-title>
-      <ion-card-subtitle>Inicia sesión para continuar</ion-card-subtitle>
+      <ion-card-title class="title">Iniciar Sesión</ion-card-title>
+      <ion-card-subtitle class="subtitle">Ingresa con tu usuario y contraseña</ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
       <form (ngSubmit)="login()" #loginForm="ngForm">
-        <ion-item>
-          <ion-label position="stacked">Usuario</ion-label>
+        <ion-item class="input-item">
+          <ion-label position="stacked">Correo o usuario</ion-label>
           <ion-input
             type="text"
             required
             minlength="3"
-            maxlength="8"
+            maxlength="40"
             [(ngModel)]="user.username"
             name="username"
           ></ion-input>
         </ion-item>
 
-        <ion-item>
+        <ion-item class="input-item">
           <ion-label position="stacked">Contraseña</ion-label>
           <ion-input
             type="password"
@@ -36,11 +43,11 @@
           ></ion-input>
         </ion-item>
 
-        <ion-button expand="block" type="submit" [disabled]="!loginForm.form.valid">
+        <ion-button expand="block" class="login-button" type="submit" [disabled]="!loginForm.form.valid">
           Ingresar
         </ion-button>
 
-        <ion-button expand="block" fill="outline" color="secondary" (click)="goToRegister()">
+        <ion-button expand="block" fill="outline" color="medium" class="register-button" (click)="goToRegister()">
           Crear cuenta
         </ion-button>
       </form>
