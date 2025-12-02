@@ -22,7 +22,6 @@ export class CartService {
   }
 
   addItem(item: any) {
-    // If item has id, try to merge by id
     if (item && item.id != null) {
       const found = this.items.find(i => i.id === item.id);
       if (found) {

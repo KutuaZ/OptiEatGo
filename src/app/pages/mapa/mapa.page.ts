@@ -47,7 +47,6 @@ export class MapaPage {
 
       console.log('Ubicación obtenida:', lat, lng);
 
-      // Si el mapa ya existe, simplemente centramos y salimos
       if (this.map) {
         this.map.setView([lat, lng], 16);
         return;

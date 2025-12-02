@@ -23,11 +23,9 @@ export class ApiService {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (e) {
-      // ignore
     }
   }
 
-  // Example: get posts
   getPosts(): Observable<any> {
     const key = 'api_posts_cache';
     return this.http.get(`${this.BASE}/posts`).pipe(
@@ -42,7 +40,6 @@ export class ApiService {
     );
   }
 
-  // Example: get users
   getUsers(): Observable<any> {
     const key = 'api_users_cache';
     return this.http.get(`${this.BASE}/users`).pipe(
@@ -57,10 +54,9 @@ export class ApiService {
     );
   }
 
-  // Recommended items by preference (simulated if no backend exists)
   getRecommended(pref: string): Observable<any[]> {
     const key = `recommended_${pref}`;
-    // Keep the local simulation as a fallback when backend is not available
+
     const vegano = [
       { id: 901, title: 'Ensalada Super Verde', description: 'Mezcla de hojas y quinoa', image: 'assets/imagen/fotoperfildemo.jpg', price: 4990 },
       { id: 902, title: 'Burger Veggie', description: 'Hamburguesa a base de garbanzo', image: 'assets/imagen/hamburguesaartesanal.jpg', price: 6990 },
@@ -84,12 +80,10 @@ export class ApiService {
     if (n.includes('vegano')) data = vegano;
     else if (n.includes('vegetar')) data = vegetariano;
 
-    // cache and return as observable
     this.cacheSet(key, data);
     return of(data);
   }
 
-  // Ask backend for recommendations by username. Falls back to local simulation on error.
   getRecommendedForUser(username: string): Observable<any[]> {
     const url = `${this.BASE}/recommended` + (username ? `?user=${encodeURIComponent(username)}` : '');
     const cacheKey = `recommended_user_${username}`;
@@ -98,14 +92,12 @@ export class ApiService {
       catchError(() => {
         const cached = this.cacheGet<any[]>(cacheKey);
         if (cached) return of(cached);
-        // fallback to simulated by reading possible pref from localStorage
         const pref = localStorage.getItem(`preference_${username}`) || '';
         return this.getRecommended(pref);
       })
     );
   }
 
-  // Generic GET with caching key optional
   getWithCache<T>(path: string, cacheKey?: string): Observable<T> {
     const key = cacheKey || `api_cache_${path}`;
     return this.http.get<T>(path).pipe(
@@ -113,7 +105,6 @@ export class ApiService {
       catchError(() => {
         const cached = this.cacheGet<T>(key);
         if (cached) return of(cached);
-        // fallback empty
         return of(null as unknown as T);
       })
     );
