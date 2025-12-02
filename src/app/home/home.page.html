@@ -61,14 +61,14 @@
       <ion-row>
         <ion-col size="12" *ngFor="let item of recommended">
           <ion-card [class.saved]="isSaved(item)" (click)="animateCard($event)">
-            <img [src]="item.image" alt="{{item.title}}" />
+            <img [src]="item.image" alt="{{item.title}}" (error)="imgError($event)" />
             <ion-card-header>
               <ion-card-title>{{ item.title }}</ion-card-title>
               <ion-card-subtitle>{{ item.description }}</ion-card-subtitle>
             </ion-card-header>
 
             <ion-card-content class="card-footer">
-              <div class="price">$ {{ item.price | number:'1.0-0' }}</div>
+              <div class="price">$ {{ formatPrice(item.price) }}</div>
               <div class="actions">
                   <ion-button color="primary" (click)="$event.stopPropagation(); addToCart(item)">Agregar</ion-button>
                   <ion-button fill="clear" class="save-btn" (click)="$event.stopPropagation(); saveItem(item)">

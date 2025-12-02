@@ -28,7 +28,7 @@ import {
 export class HomePage implements OnInit {
   username = '';
   recommended: any[] = [];
-  allRecommended: any[] = []; // full list to filter against
+  allRecommended: any[] = []; 
   searchText: string = '';
 
   constructor(private router: Router, private animationCtrl: AnimationController, private menu: MenuController, public cart: CartService, private api: ApiService) {
@@ -45,7 +45,6 @@ export class HomePage implements OnInit {
   }
 
   onSearch(ev: any) {
-    // ev.detail && ev.detail.value for ionInput
     const q = (ev && ev.detail && typeof ev.detail.value === 'string') ? ev.detail.value : (ev || '');
     this.searchText = q;
     this.applyFilter();
@@ -71,16 +70,22 @@ export class HomePage implements OnInit {
     const prefKey = `preference_${this.username}`;
     const pref = localStorage.getItem(prefKey) || '';
 
-    // Mostrar datos locales inmediatos para evitar latencia en la UI
+    // Mostrar datos locales 
     this.allRecommended = [
       { id: 201, title: 'Costillar asado', description: 'Jugoso y tierno.', image: 'assets/imagen/costillarasado.jpg', price: 12990 },
       { id: 202, title: 'Hamburguesa artesanal', description: 'Pan brioche y cheddar.', image: 'assets/imagen/hamburguesaartesanal.jpg', price: 6990 },
       { id: 203, title: 'Pizza Pepperoni', description: 'Queso y pepperoni.', image: 'assets/imagen/pizzapeperoni.jpg', price: 8990 }
     ];
-    // initialize visible list
     this.recommended = [...this.allRecommended];
 
     // Luego pedir recomendaciones al ApiService y reemplazar si llegan resultados
+    // Development: clear cached recommendations to force fetch fresh data
+    try {
+      this.api.clearRecommendedCache(this.username);
+    } catch (e) {
+      // ignore
+    }
+
     this.api.getRecommendedForUser(this.username).subscribe({
       next: (items) => {
         if (Array.isArray(items) && items.length) {
@@ -127,7 +132,6 @@ export class HomePage implements OnInit {
     localStorage.setItem('savedItems', JSON.stringify(saved));
   }
 
-  //  Comprobar si está guardado
   isSaved(item: any): boolean {
     const saved = JSON.parse(localStorage.getItem('savedItems') || '[]');
     return saved.some((s: any) => s.title === item.title);
@@ -153,6 +157,24 @@ export class HomePage implements OnInit {
     animation.play();
   }
 
+  imgError(event: any) {
+    try {
+      event.target.src = 'assets/imagen/fotoperfildemo.jpg';
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  formatPrice(value: any): string {
+    try {
+      const n = Number(value) || 0;
+      // Use locale formatting for Chilean-style thousands separator (dot)
+      return n.toLocaleString('es-CL', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    } catch (e) {
+      return String(value);
+    }
+  }
+
   goToOrders() {
     alert('Redirigiendo a tus pedidos...');
   }
@@ -165,11 +187,9 @@ export class HomePage implements OnInit {
   }
 
   async goToReclamo() {
-    // cerrar el menú antes de navegar para evitar comportamientos inesperados
     try {
       await this.menu.close();
     } catch (e) {
-      // Log the error for debugging purposes; menu close errors are usually non-critical
       console.error('Error closing menu before navigating to /reclamo:', e);
     }
     this.router.navigateByUrl('/reclamo');

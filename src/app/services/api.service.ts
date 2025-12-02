@@ -85,7 +85,9 @@ export class ApiService {
   }
 
   getRecommendedForUser(username: string): Observable<any[]> {
-    const url = `${this.BASE}/recommended` + (username ? `?user=${encodeURIComponent(username)}` : '');
+    // Add a timestamp query param during development to avoid browser/http caching
+    let url = `${this.BASE}/recommended` + (username ? `?user=${encodeURIComponent(username)}` : '');
+    url += (url.includes('?') ? '&' : '?') + `t=${Date.now()}`;
     const cacheKey = `recommended_user_${username}`;
     return this.http.get<any[]>(url).pipe(
       tap(res => this.cacheSet(cacheKey, res)),
@@ -96,6 +98,16 @@ export class ApiService {
         return this.getRecommended(pref);
       })
     );
+  }
+
+  // Development helper: clear cached recommendations for a user
+  clearRecommendedCache(username: string) {
+    try {
+      const cacheKey = `recommended_user_${username}`;
+      localStorage.removeItem(cacheKey);
+    } catch (e) {
+      // ignore
+    }
   }
 
   getWithCache<T>(path: string, cacheKey?: string): Observable<T> {
