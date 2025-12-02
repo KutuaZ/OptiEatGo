@@ -55,6 +55,15 @@
           ></ion-input>
         </ion-item>
 
+        <ion-item>
+          <ion-label position="stacked">Preferencia de alimentación</ion-label>
+          <ion-select [(ngModel)]="newUser.preference" name="preference" placeholder="Selecciona">
+            <ion-select-option value="vegano">Vegano</ion-select-option>
+            <ion-select-option value="vegetariano">Vegetariano</ion-select-option>
+            <ion-select-option value="omnivoro">Omnívoro</ion-select-option>
+          </ion-select>
+        </ion-item>
+
         <ion-button expand="block" type="submit" [disabled]="!registerForm.form.valid">
           Registrar
         </ion-button>

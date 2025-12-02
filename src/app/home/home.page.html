@@ -48,7 +48,7 @@
       <p>¿Quieres saber qué tenemos para ti?</p>
     </div>
 
-    <ion-searchbar placeholder="Buscar restaurantes o platos..."></ion-searchbar>
+    <ion-searchbar placeholder="Buscar restaurantes o platos..." (ionInput)="onSearch($event)" [value]="searchText" showCancelButton="focus"></ion-searchbar>
 
     <div class="history-section">
       <ion-icon name="time-outline"></ion-icon>
